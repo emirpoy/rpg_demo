@@ -21,9 +21,13 @@ class Game:
     def new(self):
         # initialize all variables and do all the setup for a new game
         self.all_sprites = pg.sprite.Group()
+        self.playerstat_sprites = pg.sprite.Group()
         self.map = TileMap(self.screen)
-        self.player1 = Player(self, self.map.mapIndex)
-        self.player2 = Player(self, self.map.mapIndex)
+        self.player1 = Player(self, self.map.mapIndex, RED)
+        self.player2 = Player(self, self.map.mapIndex, BLUE)
+        self.player_stats1 = PlayerStatistics(self, 1, 0.5, player=self.player1)
+        self.player_stats2 = PlayerStatistics(self, 15, 0.5, player=self.player2)
+
         #for x in range(10, 20):
         #    Wall(self, x, 5)
 
@@ -50,10 +54,10 @@ class Game:
         self.map.draw_hexagons() # draws map
 
         self.player1.get_available_positions()
-        self.map.draw_available_positions(self.player1.available_positions)
+        self.map.draw_available_positions(self.player1.available_positions, self.player1.pcolor)
 
         self.player2.get_available_positions()
-        self.map.draw_available_positions(self.player2.available_positions)
+        self.map.draw_available_positions(self.player2.available_positions, self.player2.pcolor)
 
         self.all_sprites.draw(self.screen)
         pg.display.flip()
@@ -71,6 +75,7 @@ class Game:
                         map_x = self.map.mapIndex[neig_y][neig_x][1]
                         if abs(y - map_y) < Y_DIST and abs(x - map_x) < X_DIST:
                             self.player1.move(neig_y, neig_x)
+                            self.player1.update_features(energy=-1)
                             self.turn = 2
                             break
                 elif self.turn == 2:
@@ -79,6 +84,7 @@ class Game:
                         map_x = self.map.mapIndex[neig_y][neig_x][1]
                         if abs(y - map_y) < Y_DIST and abs(x - map_x) < X_DIST:
                             self.player2.move(neig_y, neig_x)
+                            self.player2.update_features(energy=-1)
                             self.turn = 1
                             break
 

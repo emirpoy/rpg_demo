@@ -35,11 +35,11 @@ class TileMap:
         pg.draw.line(self.screen, color, (x - X_DIST / 2, y - Y_DIST), (x - X_DIST, y))
         pg.draw.line(self.screen, color, (x - X_DIST, y), (x - X_DIST / 2, y + Y_DIST))
 
-    def draw_available_positions(self, avail_pos):
+    def draw_available_positions(self, avail_pos, color):
         # draws different color for the available spots
         # avail_pos: List[List[int]]
         for (y, x) in avail_pos:
-            self.draw_hex_tile(self.mapIndex[y][x][0], self.mapIndex[y][x][1], RED)
+            self.draw_hex_tile(self.mapIndex[y][x][0], self.mapIndex[y][x][1], color)
 
     def draw_mountains(self):
         pass
