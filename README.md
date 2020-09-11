@@ -5,4 +5,4 @@ requirements: pygame library and Python 3.6 and later
 
 how to start: open terminal and type "python3 main.py"
 
-how to play: click mouse on the red lined areas.
+how to play: click mouse on the red/blue lined areas (based on the player1 or player2)
